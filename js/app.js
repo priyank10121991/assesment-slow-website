@@ -164,6 +164,7 @@
     let frames = 0;
     let lastFpsTime = performance.now();
     let fps = 0;
+    let lastHudUpdate = 0;
 
     function tick(now) {
       frames++;
@@ -173,16 +174,20 @@
         lastFpsTime = now;
       }
 
-      const domCount = document.getElementsByTagName('*').length;
-      const mem = performance.memory
-        ? (performance.memory.usedJSHeapSize / 1048576).toFixed(1) + ' MB'
-        : 'n/a (Chrome only)';
+      if (now - lastHudUpdate >= 250) {
+        const domCount = document.getElementsByTagName('*').length;
+        const mem = performance.memory
+          ? (performance.memory.usedJSHeapSize / 1048576).toFixed(1) + ' MB'
+          : 'n/a (Chrome only)';
 
-      hud.innerHTML =
-        'FPS: <span class="' + (fps < 30 ? 'warn' : '') + '">' + fps + '</span><br>' +
-        'DOM nodes: <span class="' + (domCount > 3000 ? 'warn' : '') + '">' + domCount + '</span><br>' +
-        'JS heap: ' + mem + '<br>' +
-        'status: <span class="ok">optimized</span>';
+        hud.innerHTML =
+          'FPS: <span class="' + (fps < 30 ? 'warn' : '') + '">' + fps + '</span><br>' +
+          'DOM nodes: <span class="' + (domCount > 3000 ? 'warn' : '') + '">' + domCount + '</span><br>' +
+          'JS heap: ' + mem + '<br>' +
+          'status: <span class="ok">optimized</span>';
+
+        lastHudUpdate = now;
+      }
 
       window.requestAnimationFrame(tick);
     }

@@ -54,11 +54,11 @@ document.addEventListener('click', function (e) {
   }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.product-card').forEach(function (card) {
-    card.style.cursor = 'pointer';
-    card.addEventListener('click', function () {
-      openQuickView(card);
-    });
-  });
+document.addEventListener('click', function (e) {
+  const card = e.target.closest('.product-card');
+  if (!card) {
+    return;
+  }
+
+  openQuickView(card);
 });

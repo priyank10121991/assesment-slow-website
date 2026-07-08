@@ -38,4 +38,8 @@ Performance : XX
 
 ## Screenshots
 
-(Add Before & After screenshots)
+### Before
+![Before optimization screenshot](before.png)
+
+### After
+![After optimization screenshot](after.png)
